@@ -25,7 +25,7 @@ from app.images.router import router as images_router
 from app.importer.router import router as importer_router
 from app.logger import logger
 from app.pages.router import router as pages_router
-from app.prometheus.router import router as prometheus_router
+# from app.prometheus.router import router as prometheus_router
 from app.users.router import router as users_router
 
 
@@ -58,7 +58,7 @@ app.include_router(rooms_router)
 app.include_router(pages_router)
 app.include_router(images_router)
 app.include_router(importer_router)
-app.include_router(prometheus_router)
+# app.include_router(prometheus_router)
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
@@ -77,12 +77,12 @@ async def add_process_time_header(request: Request, call_next):
 
 app = VersionedFastAPI(app, version_format='{major}', prefix_format='/v{major}',)
 
-instrumentator = Instrumentator(
-    should_group_status_codes=False,
-    excluded_handlers=[".*admin.*", "/metrics"],
-)
-
-Instrumentator().instrument(app).expose(app)
+# instrumentator = Instrumentator(
+#     should_group_status_codes=False,
+#     excluded_handlers=[".*admin.*", "/metrics"],
+# )
+#
+# Instrumentator().instrument(app).expose(app)
 
 app.mount("/static", StaticFiles(directory="app/static"), "static")
 
